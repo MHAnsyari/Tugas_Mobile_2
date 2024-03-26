@@ -15,22 +15,22 @@ class UserResponse {
 
   factory UserResponse.createUserResponse(Map<String, dynamic> object) {
     return UserResponse(
-        id: object['id']. tostring(),
+        id: object['id'].toString(),
         email: object['email'],
         name: object['first_name'] + " " + object['last_name'],
         avatar: object['avatar']);
   }
 
   static Future<List<UserResponse>> getUserList(String page) async {
-    var apiurl = Uri.parse("https://regres.in/api/users?page=" + page);
-    var apiResult = await http.get(apiurl);
+    var apiUrl = Uri.parse("https://reqres.in/api/users?page=" + page);
+    var apiResult = await http.get(apiUrl);
 
-    var jsonobject = json.decode(apiResult.body);
-    List<dynamic> listUser = (jsonobject as Map<String, dynamic> )['data'];
+    var jsonObject = json.decode(apiResult.body);
+    List<dynamic> listUser = (jsonObject as Map<String, dynamic> )['data'];
 
     List<UserResponse> users = [];
     for (int i = 0; i < listUser.length; i++) {
-    users.add(UserResponse.createUserResponse(listUser[i]));
+      users.add(UserResponse.createUserResponse(listUser[i]));
     }
     return users;
   }
